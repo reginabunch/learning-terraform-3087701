@@ -65,10 +65,6 @@ module "blog_alb" {
       protocol         = "HTTP"
       port             = 80
       target_type      = "instance"
-      targets = {
-        target_id = aws_intance.blog.id
-        port = 80
-      }
     }
   ]
 
@@ -91,9 +87,4 @@ module "blog_sg" {
 
   egress_rules       = ["all-all"]
   egress_cidr_blocks = ["0.0.0.0/0"]
-}
-
-resource "aws_autoscaling_attachment" "attachment" {
-  autoscaling_group_name  = module.autoscaling.autoscaling_group_name
-  lb_target_group_arn    = module.blog_alb.target_groups["ex-instance"]["arn"]
 }
